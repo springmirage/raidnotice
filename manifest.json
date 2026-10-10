@@ -1,1 +1,1 @@
-{"test":"raid-notice-mobile-test","version":2,"image":"assets/m5-preview-v2.webp","imageBytes":178288,"original":"assets/m5-step-1.png","originalBytes":3860711,"purpose":"mobile same-origin resource loading test"}
+{"test":"raid-notice-mobile-test","version":3,"image":"assets/m5-preview-v2.webp","imageBytes":178288,"purpose":"mobile same-origin resource loading test","highResolution":"assets/m5-hd-v3.webp","highResolutionBytes":764436,"highResolutionWidth":2700,"highResolutionHeight":1520}
