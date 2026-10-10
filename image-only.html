@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>仅测试图片与 JSON</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5fa;color:#17233a;font:16px/1.65 system-ui,sans-serif}main{width:min(100%,960px);margin:auto;padding:20px 14px 48px}section{background:white;padding:18px;border:1px solid #d9dfeb;border-radius:14px;margin:16px 0}h1{font-size:clamp(24px,5vw,34px);line-height:1.3}h2{font-size:21px}p{margin:10px 0}a{color:#0754ac;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;border-radius:8px}iframe{display:block;width:100%;max-width:100%;border:1px solid #ccd5e3;border-radius:8px}.video{aspect-ratio:16/9;min-height:230px}.doc{height:850px}.status{padding:10px 12px;background:#eef2fa;border-radius:8px;overflow-wrap:anywhere}.ok{background:#e4f6e9;color:#145927}.fail{background:#ffe8e8;color:#862020}button{font:inherit;padding:10px 16px;border:1px solid #0754ac;color:#0754ac;border-radius:8px;background:white;cursor:pointer}small{color:#56647b}li{margin:8px 0}
+</style>
+</head>
+<body><main>
+<h1>仅测试图片与 JSON</h1>
+<p class="status ok"><strong>已打开 HTML。</strong>你能看到这段文字，说明本页 HTML 已在当前设备显示。</p>
+<p>此页只请求本站 HTML、轻量图片与 JSON，没有视频或腾讯 iframe。<a href="./?v=2">返回完整测试页</a></p><p>请用同一手机、同一网络确认图片和 JSON 加载是否改善。电脑或服务器检测通过，不能代替手机验收。</p>
+<section><h2>1 · 同源图片</h2><p>默认预览：1280×721，178,288 字节（174.1 KiB / 178.3 KB）。原图：2700×1520，3,860,711 字节（3.86 MB），仅点击后加载。</p><p><a href="assets/m5-preview-v2.webp" target="_blank" rel="noopener">打开预览并放大</a> · <a href="assets/m5-step-1.png" target="_blank" rel="noopener">查看高清原图（3.86 MB）</a></p><p id="image-status" class="status" aria-live="polite">预览：正在加载…</p><button id="image-retry" type="button">重试预览</button><img id="tactic" alt="M5 战术站位轻量预览，可点击预览链接放大" width="1280" height="721" loading="eager" fetchpriority="high" decoding="async" src="assets/m5-preview-v2.webp"><small>耗时只显示在本页，不上传。加载成功不代表小字已能看清，请人工确认；需要更多细节时查看高清原图。</small></section>
+<section><h2>2 · 同源 JSON</h2><p id="json-status" class="status" aria-live="polite">JSON：等待加载…</p><button id="retry" type="button">重新检测 JSON</button> <a href="manifest.json" target="_blank" rel="noopener">查看原始 JSON</a><noscript><p>JavaScript 未启用，请打开原始 JSON 人工确认；自动加载状态尚未检测。</p></noscript></section>
+
+
+
+<section><h2>手机复测</h2><p>确认预览实际可见、小字和标记可辨认，记录页面显示的图片及 JSON 加载耗时；再返回完整测试页比较。不要把电脑 HTTP 通过当作手机通过。</p><small>测量只留当前页面，不自动上传；无第三方 iframe 或统计脚本。</small></section>
+</main><script>
+const setStatus=(id,text,kind='')=>{const el=document.getElementById(id);el.textContent=text;el.className='status '+kind;};
+const img=document.getElementById('tactic');
+let imageStart=performance.now();let imageTimer;
+function resourceTime(url,fallback){const entries=performance.getEntriesByName(new URL(url,location.href).href);return entries.length?entries[entries.length-1].duration:fallback;}
+function imageResult(){clearTimeout(imageTimer);const elapsed=resourceTime(img.currentSrc,performance.now()-imageStart);if(img.naturalWidth>0)setStatus('image-status',`预览加载成功（178,288 字节，${img.naturalWidth} × ${img.naturalHeight}，当前浏览器用时 ${(elapsed/1000).toFixed(2)} 秒；可能受缓存影响）。`,'ok');else setStatus('image-status','预览加载失败，可点击重试或打开预览链接。','fail');}
+function slowImage(){imageTimer=setTimeout(()=>{if(!img.complete)setStatus('image-status','预览仍在加载（超过 15 秒），可能受当前网络影响；可继续等待或重试。');},15000);}
+img.addEventListener('load',imageResult);img.addEventListener('error',imageResult);if(img.complete)imageResult();else slowImage();
+document.getElementById('image-retry').addEventListener('click',()=>{clearTimeout(imageTimer);imageStart=performance.now();setStatus('image-status','预览：正在重新请求…');img.src='assets/m5-preview-v2.webp?retry='+Date.now();slowImage();});
+let request=0;
+async function checkJson(){const current=++request;const jsonStart=performance.now();setStatus('json-status','JSON：正在请求…');const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),15000);try{const response=await fetch('manifest.json',{cache:'no-store',signal:controller.signal});if(!response.ok)throw new Error(`HTTP ${response.status}`);const body=await response.text();const data=JSON.parse(body);if(data.test!=='raid-notice-mobile-test'||data.version!==2)throw new Error('内容校验失败');if(current===request)setStatus('json-status',`JSON 加载成功（HTTP ${response.status}，版本 ${data.version}，${new TextEncoder().encode(body).length} 字节（正文），用时 ${((performance.now()-jsonStart)/1000).toFixed(2)} 秒）。`,'ok');}catch(error){if(current===request)setStatus('json-status','JSON 加载失败：'+(error.name==='AbortError'?'请求超时':error.message),'fail');}finally{clearTimeout(timer);}}
+document.getElementById('retry').addEventListener('click',checkJson);checkJson();
+document.querySelectorAll('iframe[data-status]').forEach(frame=>{frame.addEventListener('load',()=>setStatus(frame.dataset.status,'iframe 已触发 load 事件；不代表内容已显示，请在手机上人工确认。'));frame.addEventListener('error',()=>setStatus(frame.dataset.status,'iframe 发生 error 事件，请打开原页对照。','fail'));});
+</script></body></html>
