@@ -16,3 +16,8 @@
 .hero h1 .activity-title{color:var(--blue)}.brand-mark{display:flex;align-items:center;justify-content:center;padding:0;font-size:20px;line-height:1;text-align:center;letter-spacing:0;font-weight:700}
 
 .brand-glyph{display:block;transform:translateY(-1.5px)}
+
+.steps button[aria-pressed=true],.steps button[aria-pressed=true]:hover,.steps button[aria-pressed=true]:focus,.steps button[aria-pressed=true]:focus-visible{background:var(--accent);border-color:var(--accent);color:#fff}
+.steps button[aria-pressed=true] *{color:inherit}
+#farm-details>summary{background:#edf3fa;padding:14px 16px;border:0;border-radius:8px}#farm-details>summary:hover{background:#e4edf7}#farm-details>summary h2{color:var(--blue)}
+#farm-details .farm-indicator,#farm-details:not([open]) .farm-indicator,#farm-details[open] .farm-indicator{font-size:14px;color:var(--blue)}#farm-details .farm-indicator::after{content:none}
