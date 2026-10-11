@@ -6,14 +6,14 @@ function resource(value){if(typeof value!=='string'||!/^assets\/[a-z0-9/_\-.]+\.
 function validAsset(a,hd=false){if(!a||!Number.isInteger(a.bytes)||a.bytes<1||!Number.isInteger(a.width)||a.width<1||!Number.isInteger(a.height)||a.height<1||!/^[a-f0-9]{64}$/.test(a.sha256)||hd&&a.bytes>1000000)throw Error('图片数据校验失败');resource(a.path);}
 function validate(data){if(data.schemaVersion!==1||!data.plans)throw Error('快照格式不支持');for(const key of expected){const p=data.plans[key];if(!p||!Number.isInteger(p.revision)||!p.capturedAt||!Array.isArray(p.steps)||!p.steps.length)throw Error('快照组不完整');p.steps.forEach((s,i)=>{if(s.step!==i+1)throw Error('快照步骤不连续');validAsset(s.preview);validAsset(s.highResolution,true);});if(!p.sourceUrl?.startsWith('https://raidplan.io/plan/'))throw Error('来源链接无效');}return data;}
 function element(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
-function planView(key,p){const box=element('article',null,'plan');box.append(element('h3',p.title+' 战术图'));
+function planView(key,p){const box=element('article',null,'plan');const heading=element('div',null,'plan-heading');heading.append(element('h3',p.title+' 战术图'));box.append(heading);
  box.append(element('p',`${p.steps.length} 张战术图`,'meta'));
  box.append(element('p',`图片更新时间：${time(p.capturedAt)}`,'meta muted'));
  if(p.sourceCheck?.status==='update_available')box.append(element('p','原网页已有更新，可打开 Raidplan 查看。','meta'));
  const tabs=element('div',null,'steps');tabs.setAttribute('aria-label',p.title+' 战术图切换');const buttons=[];
  let image=element('img',null,'preview');
  const label=element('p',null,'meta');const status=element('p','图片加载中…','status');status.setAttribute('aria-live','polite');
- const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大查看','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开 Raidplan','button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';const retry=element('button','重新加载');retry.type='button';let current,requestId=0,cancelImage=()=>{};
+ const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大查看','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开原页','plan-original button original-button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';heading.append(source);const retry=element('button','重新加载');retry.type='button';let current,requestId=0,cancelImage=()=>{};
  function loadPreview(step,active=false,retryRequest=false){
   cancelImage();const id=++requestId;const next=element('img',null,'preview');
   next.alt=`${p.title} 战术图，第${step.step}张图`;next.width=step.preview.width;next.height=step.preview.height;
@@ -35,7 +35,7 @@ function planView(key,p){const box=element('article',null,'plan');box.append(ele
  retry.addEventListener('click',()=>loadPreview(current,true,true));
  p.steps.forEach(s=>{const b=element('button',String(s.step));b.type='button';b.setAttribute('aria-label',`第${s.step}张图`);b.addEventListener('click',()=>select(s));buttons.push(b);tabs.append(b);});
  previewLink.addEventListener("click",event=>{event.preventDefault();openViewer(previewLink.href,`${p.title} · 第${current.step}张图`);});hd.addEventListener("click",event=>{event.preventDefault();openViewer(hd.href,`${p.title} · 第${current.step}张图 · 原图`);});
- actions.append(previewLink,hd,source,retry);box.append(tabs,label,status,image,actions);select(p.steps[0],false);return box;}
+ actions.append(previewLink,hd,retry);box.append(tabs,label,status,image,actions);select(p.steps[0],false);return box;}
 let busy=false;async function refresh(){if(busy)return;busy=true;const button=document.getElementById('refresh');const status=document.getElementById('snapshot-status');button.disabled=true;status.textContent='战术图加载中…';status.className='status';try{const u=new URL(manifestUrl);u.searchParams.set('v',Date.now());const response=await fetch(u,{cache:'no-store',signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error('HTTP '+response.status);const data=validate(await response.json());const views={};for(const key of expected)views[key]=planView(key,data.plans[key]);for(const key of expected)document.getElementById('plan-'+key).replaceChildren(views[key]);status.textContent='战术图已加载。';}catch(error){status.textContent='战术图加载失败，请重试；也可打开 Raidplan 查看。';status.className='status error';}finally{button.disabled=false;busy=false;}}
 document.getElementById('refresh').addEventListener('click',refresh);refresh();
 
