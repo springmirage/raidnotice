@@ -13,7 +13,7 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
  const tabs=element('div',null,'steps');tabs.setAttribute('aria-label',p.title+' 战术图切换');const buttons=[];
  let image=element('img',null,'preview');
  const label=element('p',null,'meta');const status=element('p','图片加载中…','status');status.setAttribute('aria-live','polite');
- const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大查看','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开原页','plan-original button original-button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';heading.append(source);const retry=element('button','重新加载');retry.type='button';let current,requestId=0,cancelImage=()=>{};
+ const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开原页','plan-original button original-button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';heading.append(source);const retry=element('button','刷新');retry.type='button';let current,requestId=0,cancelImage=()=>{};
  function loadPreview(step,active=false,retryRequest=false){
   cancelImage();const id=++requestId;const next=element('img',null,'preview');
   next.alt=`${p.title} 战术图，第${step.step}张图`;next.width=step.preview.width;next.height=step.preview.height;
@@ -31,7 +31,7 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
   if(active||key==='m5')startWaiting();else{observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))startWaiting();},{rootMargin:'200px'});observer.observe(next);}
   next.src=resource(step.preview.path)+(retryRequest?'?retry='+Date.now():'');
  }
- function select(step,active=true){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='查看原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);loadPreview(step,active);}
+ function select(step,active=true){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);loadPreview(step,active);}
  retry.addEventListener('click',()=>loadPreview(current,true,true));
  p.steps.forEach(s=>{const b=element('button',String(s.step));b.type='button';b.setAttribute('aria-label',`第${s.step}张图`);b.addEventListener('click',()=>select(s));buttons.push(b);tabs.append(b);});
  previewLink.addEventListener("click",event=>{event.preventDefault();openViewer(previewLink.href,`${p.title} · 第${current.step}张图`);});hd.addEventListener("click",event=>{event.preventDefault();openViewer(hd.href,`${p.title} · 第${current.step}张图 · 原图`);});
