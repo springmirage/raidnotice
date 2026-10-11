@@ -26,3 +26,5 @@
 #farm-details[open] .farm-indicator::after,#farm-details:not([open]) .farm-indicator::after{content:none}
 
 .hero-index{color:#dbe1e9}.hero-index small{color:#98a5b5}
+
+.document-details>summary{min-height:44px;padding:12px 23px;border-top:1px solid var(--line);background:#edf3fa;color:var(--blue);font-weight:600;cursor:pointer;list-style:none}.document-details>summary::-webkit-details-marker{display:none}.document-details>summary:hover{background:#e4edf7}.document-details>summary:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}@media(max-width:760px){.document-details>summary{padding:12px 18px}}

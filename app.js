@@ -59,3 +59,18 @@ viewer.addEventListener('click',event=>{const r=viewer.getBoundingClientRect();i
 const navigation=[...document.querySelectorAll('.sidebar nav a')];
 const sectionObserver=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){navigation.forEach(a=>{const active=a.hash==='#'+entry.target.id;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}},{rootMargin:'-10% 0px -65% 0px'});for(const section of document.querySelectorAll('main > .section'))sectionObserver.observe(section);
 for(const link of document.querySelectorAll('a[href^="#"]'))link.addEventListener('click',()=>{const h=document.querySelector(link.hash+' h2');if(h){h.tabIndex=-1;requestAnimationFrame(()=>h.focus({preventScroll:true}));}});
+
+// A new document always starts closed and without a Tencent iframe.
+for(const details of document.querySelectorAll('.document-details')){
+ const summary=details.querySelector('summary'),slot=details.querySelector('.doc-slot'),label=details.querySelector('.document-toggle-label');let allowedOpen=false;
+ details.open=false;
+ summary.addEventListener('click',event=>{allowedOpen=event.isTrusted&&!details.open;});
+ details.addEventListener('toggle',()=>{
+  let frame=slot.querySelector('iframe');
+  if(details.open&&!frame){
+   if(!allowedOpen){details.open=false;return;}
+   frame=document.createElement('iframe');frame.className='doc';frame.title=slot.dataset.title;frame.loading='eager';frame.src=slot.dataset.url;slot.append(frame);
+  }
+  allowedOpen=false;summary.setAttribute('aria-expanded',String(details.open));label.textContent=details.open?'收起 ↑':'展开查看 ↓';
+ });
+}
