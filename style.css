@@ -21,3 +21,6 @@
 .steps button[aria-pressed=true] *{color:inherit}
 #farm-details>summary{background:#edf3fa;padding:14px 16px;border:0;border-radius:8px}#farm-details>summary:hover{background:#e4edf7}#farm-details>summary h2{color:var(--blue)}
 #farm-details .farm-indicator,#farm-details:not([open]) .farm-indicator,#farm-details[open] .farm-indicator{font-size:14px;color:var(--blue)}#farm-details .farm-indicator::after{content:none}
+
+.original-button,.original-button:visited,.original-button:hover,.original-button:focus{font-weight:400}
+#farm-details[open] .farm-indicator::after,#farm-details:not([open]) .farm-indicator::after{content:none}
