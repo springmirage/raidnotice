@@ -24,3 +24,5 @@
 
 .original-button,.original-button:visited,.original-button:hover,.original-button:focus{font-weight:400}
 #farm-details[open] .farm-indicator::after,#farm-details:not([open]) .farm-indicator::after{content:none}
+
+.hero-index{color:#dbe1e9}.hero-index small{color:#98a5b5}
