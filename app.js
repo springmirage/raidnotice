@@ -46,9 +46,9 @@ document.getElementById('copy-kook').addEventListener('click',async()=>{const st
 const viewer=document.getElementById('image-viewer'),viewerStatus=document.getElementById('viewer-status'),zoom=document.getElementById('viewer-zoom');let viewerId=0,viewerTimer,previousOverflow='';
 function openViewer(url,title){
  const id=++viewerId;clearTimeout(viewerTimer);const old=document.getElementById('viewer-image');old.removeAttribute('src');const img=document.createElement('img');img.id='viewer-image';img.alt=title;img.setAttribute('aria-busy','true');old.replaceWith(img);
- document.getElementById('viewer-title').textContent=title;document.getElementById('viewer-original').href=url;viewerStatus.textContent='正在加载放大图…';zoom.setAttribute('aria-pressed','false');zoom.textContent='原尺寸放大';
+ document.getElementById('viewer-title').textContent=title;document.getElementById('viewer-original').href=url;viewerStatus.textContent='正在加载放大图…';zoom.disabled=true;zoom.setAttribute('aria-pressed','false');zoom.textContent='原尺寸放大';
  if(!viewer.open){previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';viewer.showModal();}document.querySelector('.viewer-scroll').scrollTo(0,0);
- img.onload=async()=>{try{await img.decode();}catch{return;}if(id!==viewerId||!viewer.open)return;clearTimeout(viewerTimer);img.setAttribute('aria-busy','false');viewerStatus.textContent=`已加载 ${img.naturalWidth} × ${img.naturalHeight}，可切换原尺寸并在图片区域滚动。`;};
+ img.onload=async()=>{try{await img.decode();}catch{return;}if(id!==viewerId||!viewer.open)return;clearTimeout(viewerTimer);zoom.disabled=false;img.setAttribute('aria-busy','false');viewerStatus.textContent=`已加载 ${img.naturalWidth} × ${img.naturalHeight}，可切换原尺寸并在图片区域滚动。`;};
  img.onerror=()=>{if(id===viewerId&&viewer.open){clearTimeout(viewerTimer);viewerStatus.textContent='图片加载失败，可关闭重试或单独打开图片。';}};
  viewerTimer=setTimeout(()=>{if(id===viewerId&&viewer.open){img.onerror=null;img.removeAttribute('src');viewerStatus.textContent='图片加载超时，可关闭重试或单独打开图片。';}},45000);img.src=url;
 }
