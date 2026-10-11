@@ -6,10 +6,11 @@ function resource(value){if(typeof value!=='string'||!/^assets\/[a-z0-9/_\-.]+\.
 function validAsset(a,hd=false){if(!a||!Number.isInteger(a.bytes)||a.bytes<1||!Number.isInteger(a.width)||a.width<1||!Number.isInteger(a.height)||a.height<1||!/^[a-f0-9]{64}$/.test(a.sha256)||hd&&a.bytes>1000000)throw Error('图片数据校验失败');resource(a.path);}
 function validate(data){if(data.schemaVersion!==1||!data.plans)throw Error('快照格式不支持');for(const key of expected){const p=data.plans[key];if(!p||!Number.isInteger(p.revision)||!p.capturedAt||!Array.isArray(p.steps)||!p.steps.length)throw Error('快照组不完整');p.steps.forEach((s,i)=>{if(s.step!==i+1)throw Error('快照步骤不连续');validAsset(s.preview);validAsset(s.highResolution,true);});if(!p.sourceUrl?.startsWith('https://raidplan.io/plan/'))throw Error('来源链接无效');}return data;}
 function element(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
+const planControllers=new Map();
 function planView(key,p){const box=element('article',null,'plan');const heading=element('div',null,'plan-heading');heading.append(element('h3',p.title+' 战术图'));box.append(heading);
- box.append(element('p',`${p.steps.length} 张战术图`,'meta'));
- box.append(element('p',`图片更新时间：${time(p.capturedAt)}`,'meta muted'));
- if(p.sourceCheck?.status==='update_available')box.append(element('p','原网页已有更新，可打开 Raidplan 查看。','meta'));
+ const countText=element('p',`${p.steps.length} 张战术图`,'meta');box.append(countText);
+ const captureText=element('p',`图片更新时间：${time(p.capturedAt)}`,'meta muted');box.append(captureText);
+ const sourceNotice=element('p','原网页已有更新，可打开 Raidplan 查看。','meta');sourceNotice.hidden=p.sourceCheck?.status!=='update_available';box.append(sourceNotice);
  const tabs=element('div',null,'steps');tabs.setAttribute('aria-label',p.title+' 战术图切换');const buttons=[];
  let image=element('img',null,'preview');
  const label=element('p',null,'meta');const status=element('p','图片加载中…','status');status.setAttribute('aria-live','polite');
@@ -31,12 +32,45 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
   if(active||key==='m5')startWaiting();else{observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))startWaiting();},{rootMargin:'200px'});observer.observe(next);}
   next.src=resource(step.preview.path)+(retryRequest?'?retry='+Date.now():'');
  }
- function select(step,active=true){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);loadPreview(step,active);}
+ function select(step,active=true,prepared=null){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);if(prepared){cancelImage();++requestId;prepared.alt=`${p.title} 战术图，第${step.step}张图`;prepared.className='preview';prepared.width=step.preview.width;prepared.height=step.preview.height;prepared.dataset.loadState='loaded';prepared.setAttribute('aria-busy','false');image.replaceWith(prepared);image=prepared;status.textContent=`第${step.step}张图已加载。`;status.className='status';}else loadPreview(step,active);}
  retry.addEventListener('click',()=>loadPreview(current,true,true));
- p.steps.forEach(s=>{const b=element('button',String(s.step));b.type='button';b.setAttribute('aria-label',`第${s.step}张图`);b.addEventListener('click',()=>select(s));buttons.push(b);tabs.append(b);});
+ function buildTabs(){buttons.length=0;tabs.replaceChildren();p.steps.forEach(s=>{const b=element('button',String(s.step));b.type='button';b.setAttribute('aria-label',`第${s.step}张图`);b.addEventListener('click',()=>select(s));buttons.push(b);tabs.append(b);});}
+ buildTabs();
  previewLink.addEventListener("click",event=>{event.preventDefault();openViewer(previewLink.href,`${p.title} · 第${current.step}张图`);});hd.addEventListener("click",event=>{event.preventDefault();openViewer(hd.href,`${p.title} · 第${current.step}张图 · 原图`);});
- actions.append(previewLink,hd,retry);box.append(tabs,label,status,image,actions);select(p.steps[0],false);return box;}
-let busy=false;async function refresh(){if(busy)return;busy=true;try{const u=new URL(manifestUrl);u.searchParams.set('v',Date.now());const response=await fetch(u,{cache:'no-store',signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error('HTTP '+response.status);const data=validate(await response.json());const views={};for(const key of expected)views[key]=planView(key,data.plans[key]);for(const key of expected)document.getElementById('plan-'+key).replaceChildren(views[key]);}catch(error){for(const key of expected){const card=document.querySelector('#plan-'+key+' .plan');const status=card.querySelector('.status');status.textContent='战术图加载失败，请刷新重试或打开原页查看。';status.className='status error';if(!card.querySelector('.manifest-retry')){const actions=element('div',null,'actions');const retry=element('button','刷新','manifest-retry');retry.type='button';retry.addEventListener('click',refresh);actions.append(retry);card.append(actions);}}}finally{busy=false;}}
+ actions.append(previewLink,hd,retry);box.append(tabs,label,status,image,actions);select(p.steps[0],false);
+ planControllers.set(key,{
+  selection:()=>current,
+  apply(next,step,prepared){p=next;heading.querySelector('h3').textContent=p.title+' 战术图';source.href=p.sourceUrl;countText.textContent=`${p.steps.length} 张战术图`;captureText.textContent=`图片更新时间：${time(p.capturedAt)}`;sourceNotice.hidden=p.sourceCheck?.status!=='update_available';buildTabs();select(step,false,prepared);}
+ });return box;}
+const publishedPlans=new Map();
+function assetSignature(a){return [a.path,a.sha256,a.bytes,a.width,a.height];}
+function planSignature(p){return JSON.stringify([p.revision,p.version,p.title,p.sourceUrl,p.capturedAt,p.sourceCheck?.status==='update_available',p.steps.map(s=>[s.step,s.id,assetSignature(s.preview),assetSignature(s.highResolution)])]);}
+function matchingStep(next,previous){return next.steps.find(s=>previous.id!=null&&s.id===previous.id)||next.steps.find(s=>s.preview.sha256===previous.preview.sha256)||next.steps[Math.min(previous.step-1,next.steps.length-1)];}
+function preparePreview(step,signal){return new Promise((resolve,reject)=>{
+ if(signal.aborted){reject(Error('检查已暂停'));return;}
+ const img=new Image();let settled=false;const timer=setTimeout(()=>finish(Error('图片加载超时')),20000);
+ function finish(error){if(settled)return;settled=true;clearTimeout(timer);signal.removeEventListener('abort',aborted);img.onload=null;img.onerror=null;if(error){img.removeAttribute('src');reject(error);}else resolve(img);}
+ function aborted(){finish(Error('检查已暂停'));}signal.addEventListener('abort',aborted,{once:true});
+ img.onload=async()=>{try{await img.decode();finish();}catch{finish(Error('图片解码失败'));}};img.onerror=()=>finish(Error('图片加载失败'));img.src=resource(step.preview.path);
+});}
+let busy=false,pollTimer,activeCheck,failures=0,resumeRequested=false;
+function scheduleCheck(){clearTimeout(pollTimer);if(!document.hidden)pollTimer=setTimeout(refresh,Math.min(60000*2**failures,600000));}
+async function refresh(){if(busy||document.hidden)return;clearTimeout(pollTimer);busy=true;activeCheck=new AbortController();const check=activeCheck,timeout=setTimeout(()=>check.abort(),20000);
+ try{
+  const u=new URL(manifestUrl);u.searchParams.set('v',Date.now());const response=await fetch(u,{cache:'no-store',signal:check.signal});if(!response.ok)throw Error('HTTP '+response.status);const data=validate(await response.json());
+  const changes=expected.filter(key=>publishedPlans.get(key)!==planSignature(data.plans[key]));
+  const prepared=await Promise.all(changes.map(async key=>{const controller=planControllers.get(key);if(!controller)return {key};const previous=controller.selection(),step=matchingStep(data.plans[key],previous),image=await preparePreview(step,check.signal);return {key,previous,step,image};}));
+  if(document.hidden||check.signal.aborted)throw Error('检查已暂停');
+  // A user selecting another image during a download takes priority; retry later.
+  if(prepared.some(item=>item.previous&&planControllers.get(item.key).selection()!==item.previous))return;
+  for(const item of prepared){const p=data.plans[item.key];if(item.image)planControllers.get(item.key).apply(p,item.step,item.image);else document.getElementById('plan-'+item.key).replaceChildren(planView(item.key,p));publishedPlans.set(item.key,planSignature(p));}
+  failures=0;
+ }catch(error){
+  check.abort();
+  if(!document.hidden){failures=Math.min(failures+1,4);for(const key of expected){if(planControllers.has(key))continue;const card=document.querySelector('#plan-'+key+' .plan'),status=card.querySelector('.status');status.textContent='战术图加载失败，请刷新重试或打开原页查看。';status.className='status error';if(!card.querySelector('.manifest-retry')){const actions=element('div',null,'actions'),retry=element('button','刷新','manifest-retry');retry.type='button';retry.addEventListener('click',refresh);actions.append(retry);card.append(actions);}}}
+ }finally{clearTimeout(timeout);if(activeCheck===check)activeCheck=null;busy=false;if(resumeRequested&&!document.hidden){resumeRequested=false;queueMicrotask(refresh);}else scheduleCheck();}
+}
+document.addEventListener('visibilitychange',()=>{clearTimeout(pollTimer);if(document.hidden)activeCheck?.abort();else if(busy)resumeRequested=true;else refresh();});
 refresh();
 const farmDetails=document.getElementById('farm-details'),farmSummary=farmDetails.querySelector('summary');function updateFarmState(){farmSummary.setAttribute('aria-expanded',String(farmDetails.open));farmSummary.querySelector('.farm-indicator').textContent=farmDetails.open?'收起资料 ↑':'展开资料 ↓';}farmDetails.addEventListener('toggle',updateFarmState);updateFarmState();
 
