@@ -4,45 +4,45 @@
     "m5": {
       "title": "M5",
       "sourceUrl": "https://raidplan.io/plan/xtratv5jccb3vxbk",
-      "revision": 18,
-      "version": "1656ab1ca61e4dedb9c212ffc28b4544-webp-v1",
-      "capturedAt": "2026-10-10T10:00:56.865539+00:00",
-      "sourceSavedAt": "2026-10-03T15:26:11.271Z",
+      "revision": 21,
+      "version": "4c46dfc94da046ebaa657dce4f11b314-webp-v1",
+      "capturedAt": "2026-10-12T13:32:48.378975+00:00",
+      "sourceSavedAt": "2026-10-12T12:30:32.856Z",
       "sourceCheck": {
-        "checkedAt": "2026-10-10T15:48:55.537267+00:00",
+        "checkedAt": "2026-10-12T13:32:48.396502+00:00",
         "status": "current",
-        "revision": 18,
+        "revision": 21,
         "steps": 2
       },
       "steps": [
         {
           "step": 1,
           "preview": {
-            "path": "assets/m5/1656ab1ca61e4dedb9c212ffc28b4544-webp-v1/step-1-preview.webp",
-            "bytes": 178288,
+            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-1-preview.webp",
+            "bytes": 180332,
             "width": 1280,
             "height": 721,
-            "sha256": "af85ad822e382cba292f99830c2116d3fcaba606d75c0586943ef1eadf953809"
+            "sha256": "9d7c730e459b6e6a7664929114751edd704ebe1537c88d1b1cd434b562d75bfb"
           },
           "highResolution": {
-            "path": "assets/m5/1656ab1ca61e4dedb9c212ffc28b4544-webp-v1/step-1-hd.webp",
-            "bytes": 764436,
+            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-1-hd.webp",
+            "bytes": 772250,
             "width": 2700,
             "height": 1520,
-            "sha256": "bf9c03477b48fd8d365e9842cda17778c4ef2d3e780958040e3effc3fa5b241a"
+            "sha256": "d4d2f4a86e4a549f9d61f3d0d595d4397652d57947eadb2e1b04948dae2c6571"
           }
         },
         {
           "step": 2,
           "preview": {
-            "path": "assets/m5/1656ab1ca61e4dedb9c212ffc28b4544-webp-v1/step-2-preview.webp",
+            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-2-preview.webp",
             "bytes": 165472,
             "width": 1280,
             "height": 721,
             "sha256": "b994af0534ddaa1ffca9b8f4e61ee673de3aa5efe2f2a2f2dd234816d23eff1d"
           },
           "highResolution": {
-            "path": "assets/m5/1656ab1ca61e4dedb9c212ffc28b4544-webp-v1/step-2-hd.webp",
+            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-2-hd.webp",
             "bytes": 686514,
             "width": 2700,
             "height": 1520,
