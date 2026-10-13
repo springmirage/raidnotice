@@ -1,10 +1,10 @@
 const manifestUrl=new URL('data/manifest.json',document.baseURI);
-const expected=['m5','m2','h8'];
+const expected=['m6','m5','m2','h8'];
 function bytes(n){return (n/1000).toFixed(1)+' KB';}
 function time(value){return value?new Date(value).toLocaleString('zh-CN',{hour12:false}):'未提供';}
 function resource(value){if(typeof value!=='string'||!/^assets\/[a-z0-9/_\-.]+\.webp$/.test(value)||value.includes('..'))throw Error('快照路径无效');const u=new URL(value,document.baseURI);if(u.origin!==location.origin)throw Error('快照必须同源');return u.href;}
 function validAsset(a,hd=false){if(!a||!Number.isInteger(a.bytes)||a.bytes<1||!Number.isInteger(a.width)||a.width<1||!Number.isInteger(a.height)||a.height<1||!/^[a-f0-9]{64}$/.test(a.sha256)||hd&&a.bytes>1000000)throw Error('图片数据校验失败');resource(a.path);}
-function validate(data){if(data.schemaVersion!==1||!data.plans)throw Error('快照格式不支持');for(const key of expected){const p=data.plans[key];if(!p||!Number.isInteger(p.revision)||!p.capturedAt||!Array.isArray(p.steps)||!p.steps.length)throw Error('快照组不完整');p.steps.forEach((s,i)=>{if(s.step!==i+1)throw Error('快照步骤不连续');validAsset(s.preview);validAsset(s.highResolution,true);});if(!p.sourceUrl?.startsWith('https://raidplan.io/plan/'))throw Error('来源链接无效');}return data;}
+function validate(data){if(data.schemaVersion!==1||!data.plans)throw Error('快照格式不支持');for(const key of expected){const p=data.plans[key];if(key==='m6'&&!p)continue;if(!p||!Number.isInteger(p.revision)||!p.capturedAt||!Array.isArray(p.steps)||!p.steps.length)throw Error('快照组不完整');p.steps.forEach((s,i)=>{if(s.step!==i+1)throw Error('快照步骤不连续');validAsset(s.preview);validAsset(s.highResolution,true);});if(!p.sourceUrl?.startsWith('https://raidplan.io/plan/'))throw Error('来源链接无效');}return data;}
 function element(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
 const planControllers=new Map();
 function planView(key,p){const box=element('article',null,'plan');const heading=element('div',null,'plan-heading');heading.append(element('h3',p.title+' 战术图'));box.append(heading);
@@ -18,7 +18,7 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
  function loadPreview(step,active=false,retryRequest=false){
   cancelImage();const id=++requestId;const next=element('img',null,'preview');
   next.alt=`${p.title} 战术图，第${step.step}张图`;next.width=step.preview.width;next.height=step.preview.height;
-  next.loading=active||key==='m5'?'eager':'lazy';next.decoding='async';if(active||key==='m5')next.fetchPriority='high';
+  next.loading=active||key==='m6'?'eager':'lazy';next.decoding='async';if(active||key==='m6')next.fetchPriority='high';
   next.dataset.loadState='loading';next.setAttribute('aria-busy','true');image.replaceWith(next);image=next;
   status.textContent=`第${step.step}张图加载中…`;status.className='status';
   let slowTimer,timeoutTimer,observer,started=false,settled=false;
@@ -29,7 +29,7 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
   next.onload=async()=>{if(!stillCurrent())return;try{await next.decode();}catch{fail('加载失败');return;}if(!stillCurrent())return;settled=true;clearWaiting();next.dataset.loadState='loaded';next.setAttribute('aria-busy','false');status.textContent=`第${step.step}张图已加载。`;status.className='status';};
   next.onerror=()=>fail('加载失败');
   cancelImage=()=>{settled=true;clearWaiting();next.onload=null;next.onerror=null;next.removeAttribute('src');};
-  if(active||key==='m5')startWaiting();else{observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))startWaiting();},{rootMargin:'200px'});observer.observe(next);}
+  if(active||key==='m6')startWaiting();else{observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))startWaiting();},{rootMargin:'200px'});observer.observe(next);}
   next.src=resource(step.preview.path)+(retryRequest?'?retry='+Date.now():'');
  }
  function select(step,active=true,prepared=null){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);if(prepared){cancelImage();++requestId;prepared.alt=`${p.title} 战术图，第${step.step}张图`;prepared.className='preview';prepared.width=step.preview.width;prepared.height=step.preview.height;prepared.dataset.loadState='loaded';prepared.setAttribute('aria-busy','false');image.replaceWith(prepared);image=prepared;status.textContent=`第${step.step}张图已加载。`;status.className='status';}else loadPreview(step,active);}
@@ -58,7 +58,8 @@ function scheduleCheck(){clearTimeout(pollTimer);if(!document.hidden)pollTimer=s
 async function refresh(){if(busy||document.hidden)return;clearTimeout(pollTimer);busy=true;activeCheck=new AbortController();const check=activeCheck,timeout=setTimeout(()=>check.abort(),20000);
  try{
   const u=new URL(manifestUrl);u.searchParams.set('v',Date.now());const response=await fetch(u,{cache:'no-store',signal:check.signal});if(!response.ok)throw Error('HTTP '+response.status);const data=validate(await response.json());
-  const changes=expected.filter(key=>publishedPlans.get(key)!==planSignature(data.plans[key]));
+  if(!data.plans.m6&&!planControllers.has('m6')){const card=document.querySelector('#plan-m6 .plan'),status=card.querySelector('.status');status.textContent='战术图暂不可用，可打开原页查看。';if(!card.querySelector('.manifest-retry')){const actions=element('div',null,'actions'),retry=element('button','刷新','manifest-retry');retry.type='button';retry.addEventListener('click',refresh);actions.append(retry);card.append(actions);}}
+  const changes=expected.filter(key=>data.plans[key]&&publishedPlans.get(key)!==planSignature(data.plans[key]));
   const prepared=await Promise.all(changes.map(async key=>{const controller=planControllers.get(key);if(!controller)return {key};const previous=controller.selection(),step=matchingStep(data.plans[key],previous),image=await preparePreview(step,check.signal);return {key,previous,step,image};}));
   if(document.hidden||check.signal.aborted)throw Error('检查已暂停');
   // A user selecting another image during a download takes priority; retry later.
@@ -108,3 +109,19 @@ for(const details of document.querySelectorAll('.document-details')){
   allowedOpen=false;summary.setAttribute('aria-expanded',String(details.open));label.textContent=details.open?'收起 ↑':'展开查看 ↓';
  });
 }
+
+// Calendar arithmetic uses Beijing wall-clock parts, never the browser's local zone.
+const beijingClock=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Shanghai',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric',hourCycle:'h23'});
+function activityCycle(now=new Date()){
+ const parts=Object.fromEntries(beijingClock.formatToParts(now).filter(p=>p.type!=='literal').map(p=>[p.type,Number(p.value)]));
+ const wall=Date.UTC(parts.year,parts.month-1,parts.day,parts.hour,parts.minute,parts.second,now.getUTCMilliseconds());
+ const weekday=new Date(wall).getUTCDay(),sinceTuesday=(weekday+5)%7;
+ let boundary=Date.UTC(parts.year,parts.month-1,parts.day-sinceTuesday,23);
+ if(wall<boundary)boundary-=7*86400000;
+ const dates=[2,6,7].map(offset=>{const d=new Date(boundary+offset*86400000);return `${d.getUTCMonth()+1}.${d.getUTCDate()}`;});
+ return {text:dates.join('，'),untilNext:boundary+7*86400000-wall};
+}
+let activityTimer;
+function refreshActivityDates(){clearTimeout(activityTimer);const cycle=activityCycle();document.getElementById('activity-dates').textContent=cycle.text;if(!document.hidden)activityTimer=setTimeout(refreshActivityDates,Math.max(1,cycle.untilNext));}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(activityTimer);else refreshActivityDates();});
+refreshActivityDates();
