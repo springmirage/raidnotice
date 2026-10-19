@@ -4,66 +4,66 @@
     "m6": {
       "title": "M6",
       "sourceUrl": "https://raidplan.io/plan/3c46bttpqktpfchv",
-      "revision": 19,
-      "version": "revision-19-20261019-webp-v1",
-      "capturedAt": "2026-10-19T02:15:47.637672+00:00",
-      "sourceSavedAt": "2026-10-19T02:15:07.993Z",
+      "revision": 22,
+      "version": "revision-22-20261019-webp-v1",
+      "capturedAt": "2026-10-19T09:15:14.033329+00:00",
+      "sourceSavedAt": "2026-10-19T09:13:05.093Z",
       "sourceCheck": {
-        "checkedAt": "2026-10-19T02:16:23.394366+00:00",
+        "checkedAt": "2026-10-19T09:15:33.765638+00:00",
         "status": "current",
-        "revision": 19,
+        "revision": 22,
         "steps": 3
       },
       "steps": [
         {
           "step": 1,
           "preview": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-1-preview.webp",
-            "bytes": 156878,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-1-preview.webp",
+            "bytes": 156898,
             "width": 1280,
             "height": 721,
-            "sha256": "95cb9ef2f4450d96439b01d1074d4fca5f36a07acc45684b793930471ce536d1"
+            "sha256": "ea9d02becabe8e3ecf459b670d45a4b8b418a1cd3c1cfcf0e0d3b3402eb16985"
           },
           "highResolution": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-1-hd.webp",
-            "bytes": 402210,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-1-hd.webp",
+            "bytes": 402830,
             "width": 2700,
             "height": 1520,
-            "sha256": "52d4dc05ba5bde5df878c21c524b38c1d387acf339eaf126e24b27233ef24465"
+            "sha256": "c7d70ffcbfc4dd1154a0beb20fcc99a2204abcb9c379f981bc9d19d87ca3fc3a"
           }
         },
         {
           "step": 2,
           "preview": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-2-preview.webp",
-            "bytes": 132892,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-2-preview.webp",
+            "bytes": 133028,
             "width": 1280,
             "height": 721,
-            "sha256": "a7689613607b3ab73263e5b2bc4ea596beb46c1f9236c085a693d0874cd0627d"
+            "sha256": "738a2aab978ba4dd8d05af64ff26169b5a6081132959dfeb2f8985a67260cec6"
           },
           "highResolution": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-2-hd.webp",
-            "bytes": 350564,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-2-hd.webp",
+            "bytes": 350688,
             "width": 2700,
             "height": 1520,
-            "sha256": "05d03dfa1013d59951a200a60149e9c0c0330028c8e356ec1ac71f7be4b15f58"
+            "sha256": "927600d5de77f8a280d837e45e8cc442e2e89afb62d2c3273862b45c3519fee3"
           }
         },
         {
           "step": 3,
           "preview": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-3-preview.webp",
-            "bytes": 125154,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-3-preview.webp",
+            "bytes": 125186,
             "width": 1280,
             "height": 721,
-            "sha256": "6e78bd50eca1af72ca0c155ebdfae2a46f89b4f9438a535ac52e0f463c199ab2"
+            "sha256": "87a139d451847791e349efbcb71ab6b292ac36ca4116c0c5ca268bbf9bc0b4c6"
           },
           "highResolution": {
-            "path": "assets/m6/revision-19-20261019-webp-v1/step-3-hd.webp",
-            "bytes": 320148,
+            "path": "assets/m6/revision-22-20261019-webp-v1/step-3-hd.webp",
+            "bytes": 320432,
             "width": 2700,
             "height": 1520,
-            "sha256": "c9b3c514b9c0ef0bacbe85f52b3d9233e67be96467bf87930cfd145c6dcb4dbd"
+            "sha256": "bca8fafd5a0f48e53c6046ab2a4156f26a8d8bd5371033eff949df90f54a61f4"
           }
         }
       ]
