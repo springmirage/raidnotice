@@ -319,6 +319,39 @@
           }
         }
       ]
+    },
+    "m7": {
+      "title": "M7",
+      "sourceUrl": "https://raidplan.io/plan/s9wwvk9tr838vpcr",
+      "revision": 1,
+      "version": "revision-1-20261021-webp-v1",
+      "capturedAt": "2026-10-21T05:49:10.627463+00:00",
+      "sourceSavedAt": "2026-10-21T05:46:26.217Z",
+      "sourceCheck": {
+        "checkedAt": "2026-10-21T05:49:23.227659+00:00",
+        "status": "current",
+        "revision": 1,
+        "steps": 1
+      },
+      "steps": [
+        {
+          "step": 1,
+          "preview": {
+            "path": "assets/m7/revision-1-20261021-webp-v1/step-1-preview.webp",
+            "bytes": 71422,
+            "width": 1280,
+            "height": 721,
+            "sha256": "f9c079ebb386234e277c0ba6a779ec9dc76d5bddfd108cd5b5c4da55c5a71c7b"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-1-20261021-webp-v1/step-1-hd.webp",
+            "bytes": 186372,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "8ab7bea6f492e86fb094aed6fcc64e61f2208db59493a56a0c767229c5f1e1e6"
+          }
+        }
+      ]
     }
   }
 }
