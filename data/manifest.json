@@ -71,49 +71,49 @@
     "m5": {
       "title": "M5",
       "sourceUrl": "https://raidplan.io/plan/xtratv5jccb3vxbk",
-      "revision": 21,
-      "version": "4c46dfc94da046ebaa657dce4f11b314-webp-v1",
-      "capturedAt": "2026-10-12T13:32:48.378975+00:00",
-      "sourceSavedAt": "2026-10-12T12:30:32.856Z",
+      "revision": 26,
+      "version": "revision-26-20261023-webp-v1",
+      "capturedAt": "2026-10-23T01:56:55.756Z",
+      "sourceSavedAt": "2026-10-23T01:30:21.003Z",
       "sourceCheck": {
-        "checkedAt": "2026-10-12T13:32:48.396502+00:00",
+        "checkedAt": "2026-10-23T01:57:42.522068+00:00",
         "status": "current",
-        "revision": 21,
+        "revision": 26,
         "steps": 2
       },
       "steps": [
         {
           "step": 1,
           "preview": {
-            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-1-preview.webp",
-            "bytes": 180332,
+            "path": "assets/m5/revision-26-20261023-webp-v1/step-1-preview.webp",
+            "bytes": 141016,
             "width": 1280,
             "height": 721,
-            "sha256": "9d7c730e459b6e6a7664929114751edd704ebe1537c88d1b1cd434b562d75bfb"
+            "sha256": "5d5428c5ca8d3dd01cdb8e0c6bddc16da1b01ec6c49f1b51253b7847efa673d2"
           },
           "highResolution": {
-            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-1-hd.webp",
-            "bytes": 772250,
+            "path": "assets/m5/revision-26-20261023-webp-v1/step-1-hd.webp",
+            "bytes": 364996,
             "width": 2700,
             "height": 1520,
-            "sha256": "d4d2f4a86e4a549f9d61f3d0d595d4397652d57947eadb2e1b04948dae2c6571"
+            "sha256": "2e6b19ce70cf1bf52f02f1d872fb05db017c3b1b9b22a68b6b42a861fcd5d3c2"
           }
         },
         {
           "step": 2,
           "preview": {
-            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-2-preview.webp",
-            "bytes": 165472,
+            "path": "assets/m5/revision-26-20261023-webp-v1/step-2-preview.webp",
+            "bytes": 124748,
             "width": 1280,
             "height": 721,
-            "sha256": "b994af0534ddaa1ffca9b8f4e61ee673de3aa5efe2f2a2f2dd234816d23eff1d"
+            "sha256": "cbaee8cb7915ef856ce5b82df800fcad7fd45a28d31861fbc21b872d81c1cf96"
           },
           "highResolution": {
-            "path": "assets/m5/4c46dfc94da046ebaa657dce4f11b314-webp-v1/step-2-hd.webp",
-            "bytes": 686514,
+            "path": "assets/m5/revision-26-20261023-webp-v1/step-2-hd.webp",
+            "bytes": 320162,
             "width": 2700,
             "height": 1520,
-            "sha256": "97eef8d6a596713a58ec226ed0554074475ff2b49d6762147a41a404564f71bf"
+            "sha256": "a0a906aeb1ced043366bfe8f690c133345118d486782a2ed8e4790d37deeee72"
           }
         }
       ]
