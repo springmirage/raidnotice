@@ -323,32 +323,202 @@
     "m7": {
       "title": "M7",
       "sourceUrl": "https://raidplan.io/plan/s9wwvk9tr838vpcr",
-      "revision": 1,
-      "version": "revision-1-20261021-webp-v1",
-      "capturedAt": "2026-10-21T05:49:10.627463+00:00",
-      "sourceSavedAt": "2026-10-21T05:46:26.217Z",
+      "revision": 37,
+      "version": "revision-37-20261026-webp-v1",
+      "capturedAt": "2026-10-26T05:32:39.262427+00:00",
+      "sourceSavedAt": "2026-10-26T05:27:39.870Z",
       "sourceCheck": {
-        "checkedAt": "2026-10-21T05:49:23.227659+00:00",
+        "checkedAt": "2026-10-26T05:32:56.889032+00:00",
         "status": "current",
-        "revision": 1,
-        "steps": 1
+        "revision": 37,
+        "steps": 11
       },
       "steps": [
         {
           "step": 1,
           "preview": {
-            "path": "assets/m7/revision-1-20261021-webp-v1/step-1-preview.webp",
-            "bytes": 71422,
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-1-preview.webp",
+            "bytes": 94246,
             "width": 1280,
             "height": 721,
-            "sha256": "f9c079ebb386234e277c0ba6a779ec9dc76d5bddfd108cd5b5c4da55c5a71c7b"
+            "sha256": "2141c325b0d9344974dc47e180d2c418f4a41881d20246d5a3895d6f17ed77dd"
           },
           "highResolution": {
-            "path": "assets/m7/revision-1-20261021-webp-v1/step-1-hd.webp",
-            "bytes": 186372,
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-1-hd.webp",
+            "bytes": 251494,
             "width": 2700,
             "height": 1520,
-            "sha256": "8ab7bea6f492e86fb094aed6fcc64e61f2208db59493a56a0c767229c5f1e1e6"
+            "sha256": "f21de1eb5dd2039691cbe0cd4559d9d75e902a507d6cce5a0636728b8806288f"
+          }
+        },
+        {
+          "step": 2,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-2-preview.webp",
+            "bytes": 87850,
+            "width": 1280,
+            "height": 721,
+            "sha256": "80cd6703e041056dbd7eff0acd73900e12e57b0cc95b16796589c3a5fdce1f2a"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-2-hd.webp",
+            "bytes": 231878,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "00b18cc0dc6a4dc86aa26b0dbe18ed6b88f7169ecea2926130a9d7ca25a881b0"
+          }
+        },
+        {
+          "step": 3,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-3-preview.webp",
+            "bytes": 91486,
+            "width": 1280,
+            "height": 721,
+            "sha256": "33e4989e4b5db2badadfc4e4bf045bf3c5531ecc6fb6363bba25e758af6f5944"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-3-hd.webp",
+            "bytes": 237932,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "ef8b5b8d52247f1955dcbe071d6ca09c16d1fa48e7c672081bc53454e6c58de0"
+          }
+        },
+        {
+          "step": 4,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-4-preview.webp",
+            "bytes": 91974,
+            "width": 1280,
+            "height": 721,
+            "sha256": "d1cfb705ffa9e75f44ef40eebcc05ea5fc299e8c1cc86683c15d9cb90f30b8bf"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-4-hd.webp",
+            "bytes": 239652,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "54b3d5c8efb42228c1a28bf6c2e1340ed0bcb4873a6321ef6c40ba434658cc07"
+          }
+        },
+        {
+          "step": 5,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-5-preview.webp",
+            "bytes": 117788,
+            "width": 1280,
+            "height": 721,
+            "sha256": "27beee8d60062ee701a266b094047a624f980737a02a9d867d4b953fded44209"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-5-hd.webp",
+            "bytes": 280776,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "d4288d71d33a5ccdfafedbfa9bc1b7d88c4c710697619a8d206faf956176ade7"
+          }
+        },
+        {
+          "step": 6,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-6-preview.webp",
+            "bytes": 118944,
+            "width": 1280,
+            "height": 721,
+            "sha256": "7a4cda4c2ba354354fcf7d76aa4baed73bdfbe338307c8eb8fa2000f6585fcbf"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-6-hd.webp",
+            "bytes": 288546,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "5f88fdba01b596fe176c75bf8d26af6bf1274e9ddfe96d0c0004fba5fae6c2d8"
+          }
+        },
+        {
+          "step": 7,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-7-preview.webp",
+            "bytes": 125614,
+            "width": 1280,
+            "height": 721,
+            "sha256": "166f3bb68aeb2e578e946ba30326b44ac65ca1771ef74e541bd29011ff17e6e7"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-7-hd.webp",
+            "bytes": 301472,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "f19e3b114760e88808af415075452f2148c5418df30a0360980e5f418371022e"
+          }
+        },
+        {
+          "step": 8,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-8-preview.webp",
+            "bytes": 106468,
+            "width": 1280,
+            "height": 721,
+            "sha256": "0cc6b1a1d544c1781b98660b4274a274e35a008cde587e7f6a8782a9db170bc9"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-8-hd.webp",
+            "bytes": 261046,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "cde94d94e1da0b0eb0b2a1273f7fa398aa9b783d838debd0b5d5e39436e913dd"
+          }
+        },
+        {
+          "step": 9,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-9-preview.webp",
+            "bytes": 104404,
+            "width": 1280,
+            "height": 721,
+            "sha256": "f5b43ed98c0bdc9da6b141101cb6ece4ec6ea49f3004a47756ffc178cc442822"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-9-hd.webp",
+            "bytes": 263810,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "003f5703db217848063b2ae97efeab4e5612dd02f55873a82919615af6166e90"
+          }
+        },
+        {
+          "step": 10,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-10-preview.webp",
+            "bytes": 93438,
+            "width": 1280,
+            "height": 721,
+            "sha256": "d471e623c28287a1c55bc14105eafc0d7fe3dfed43042622222564d4ea64af68"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-10-hd.webp",
+            "bytes": 239168,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "a0c4d8b951e1c7c80777fdf24f80dc96f282beede1c58fad8ed474bec7395e49"
+          }
+        },
+        {
+          "step": 11,
+          "preview": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-11-preview.webp",
+            "bytes": 123104,
+            "width": 1280,
+            "height": 721,
+            "sha256": "8a628f6f9ef187576d678be03ce8209e2be60edcce2bd5b3f4436f86a400c2c2"
+          },
+          "highResolution": {
+            "path": "assets/m7/revision-37-20261026-webp-v1/step-11-hd.webp",
+            "bytes": 299432,
+            "width": 2700,
+            "height": 1520,
+            "sha256": "66d7f4ac519ad1abc69292f4552e4528375d9b47a91ba9ae6d03c1236d85928e"
           }
         }
       ]
