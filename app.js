@@ -2,22 +2,22 @@ const manifestUrl=new URL('data/manifest.json',document.baseURI);
 const expected=['m7','m6','m5','m2','h8'];
 function bytes(n){return (n/1000).toFixed(1)+' KB';}
 function time(value){return value?new Date(value).toLocaleString('zh-CN',{hour12:false}):'未提供';}
-function resource(value){if(typeof value!=='string'||!/^assets\/[a-z0-9/_\-.]+\.webp$/.test(value)||value.includes('..'))throw Error('快照路径无效');const u=new URL(value,document.baseURI);if(u.origin!==location.origin)throw Error('快照必须同源');return u.href;}
+function resource(value){if(typeof value!=='string'||!/^assets\/[a-z0-9/_\-.]+\.(?:webp|png)$/.test(value)||value.includes('..'))throw Error('快照路径无效');const u=new URL(value,document.baseURI);if(u.origin!==location.origin)throw Error('快照必须同源');return u.href;}
 function validAsset(a,hd=false){if(!a||!Number.isInteger(a.bytes)||a.bytes<1||!Number.isInteger(a.width)||a.width<1||!Number.isInteger(a.height)||a.height<1||!/^[a-f0-9]{64}$/.test(a.sha256)||hd&&a.bytes>1000000)throw Error('图片数据校验失败');resource(a.path);}
 function validate(data){if(data.schemaVersion!==1||!data.plans)throw Error('快照格式不支持');for(const key of expected){const p=data.plans[key];if((key==='m6'||key==='m7')&&!p)continue;if(!p||!Number.isInteger(p.revision)||!p.capturedAt||!Array.isArray(p.steps)||!p.steps.length)throw Error('快照组不完整');p.steps.forEach((s,i)=>{if(s.step!==i+1)throw Error('快照步骤不连续');validAsset(s.preview);validAsset(s.highResolution,true);});if(!p.sourceUrl?.startsWith('https://raidplan.io/plan/'))throw Error('来源链接无效');}return data;}
 function element(tag,text,cls){const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
 const planControllers=new Map();
-function planView(key,p){const box=element('article',null,'plan');const heading=element('div',null,'plan-heading');heading.append(element('h3',p.title+' 战术图'));box.append(heading);
- const countText=element('p',`${p.steps.length} 张战术图`,'meta');box.append(countText);
- const captureText=element('p',`图片更新时间：${time(p.capturedAt)}`,'meta muted');box.append(captureText);
- const sourceNotice=element('p','原网页已有更新，可打开 Raidplan 查看。','meta');sourceNotice.hidden=p.sourceCheck?.status!=='update_available';box.append(sourceNotice);
- const tabs=element('div',null,'steps');tabs.setAttribute('aria-label',p.title+' 战术图切换');const buttons=[];
+function planView(key,p,options={}){const guide=options.guide===true;const imageKind=guide?'设置截图':'战术图';const box=element('article',null,'plan');const heading=element('div',null,'plan-heading');heading.append(element('h3',p.title+' '+imageKind));box.append(heading);
+ const countText=element('p',`${p.steps.length} 张${imageKind}`,'meta');box.append(countText);
+ const captureText=element('p',`图片更新时间：${time(p.capturedAt)}`,'meta muted');captureText.hidden=guide;box.append(captureText);
+ const sourceNotice=element('p','原网页已有更新，可打开 Raidplan 查看。','meta');sourceNotice.hidden=guide||p.sourceCheck?.status!=='update_available';box.append(sourceNotice);
+ const tabs=element('div',null,'steps');tabs.setAttribute('aria-label',p.title+' '+imageKind+'切换');const buttons=[];
  let image=element('img',null,'preview');
  const label=element('p',null,'meta');const status=element('p','图片加载中…','status');status.setAttribute('aria-live','polite');
- const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开原页','plan-original button original-button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';heading.append(source);const retry=element('button','刷新');retry.type='button';let current,requestId=0,cancelImage=()=>{};
+ const actions=element('div',null,'actions');const hd=element('a',null,'button');hd.target='_blank';hd.rel='noopener';const previewLink=element('a','放大','button');previewLink.target='_blank';previewLink.rel='noopener';const source=element('a','打开原页','plan-original button original-button');source.href=p.sourceUrl;source.target='_blank';source.rel='noopener';if(!guide)heading.append(source);const caption=element('p',null,'notice');caption.hidden=true;const retry=element('button','刷新');retry.type='button';let current,requestId=0,cancelImage=()=>{};
  function loadPreview(step,active=false,retryRequest=false){
   cancelImage();const id=++requestId;const next=element('img',null,'preview');
-  next.alt=`${p.title} 战术图，第${step.step}张图`;next.width=step.preview.width;next.height=step.preview.height;
+  next.alt=`${p.title} ${imageKind}，第${step.step}张图`;next.width=step.preview.width;next.height=step.preview.height;
   next.loading=active||key==='m6'||key==='m7'?'eager':'lazy';next.decoding='async';if(active||key==='m6'||key==='m7')next.fetchPriority='high';
   next.dataset.loadState='loading';next.setAttribute('aria-busy','true');image.replaceWith(next);image=next;
   status.textContent=`第${step.step}张图加载中…`;status.className='status';
@@ -32,15 +32,15 @@ function planView(key,p){const box=element('article',null,'plan');const heading=
   if(active||key==='m6'||key==='m7')startWaiting();else{observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))startWaiting();},{rootMargin:'200px'});observer.observe(next);}
   next.src=resource(step.preview.path)+(retryRequest?'?retry='+Date.now():'');
  }
- function select(step,active=true,prepared=null){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);if(prepared){cancelImage();++requestId;prepared.alt=`${p.title} 战术图，第${step.step}张图`;prepared.className='preview';prepared.width=step.preview.width;prepared.height=step.preview.height;prepared.dataset.loadState='loaded';prepared.setAttribute('aria-busy','false');image.replaceWith(prepared);image=prepared;status.textContent=`第${step.step}张图已加载。`;status.className='status';}else loadPreview(step,active);}
+ function select(step,active=true,prepared=null){current=step;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===step.step-1)));label.textContent=`第${step.step}张图`;if(guide){caption.textContent=step.caption||'';caption.hidden=!step.caption;}hd.textContent='原图';hd.href=resource(step.highResolution.path);previewLink.href=resource(step.preview.path);if(prepared){cancelImage();++requestId;prepared.alt=`${p.title} ${imageKind}，第${step.step}张图`;prepared.className='preview';prepared.width=step.preview.width;prepared.height=step.preview.height;prepared.dataset.loadState='loaded';prepared.setAttribute('aria-busy','false');image.replaceWith(prepared);image=prepared;status.textContent=`第${step.step}张图已加载。`;status.className='status';}else loadPreview(step,active);}
  retry.addEventListener('click',()=>loadPreview(current,true,true));
  function buildTabs(){buttons.length=0;tabs.replaceChildren();p.steps.forEach(s=>{const b=element('button',String(s.step));b.type='button';b.setAttribute('aria-label',`第${s.step}张图`);b.addEventListener('click',()=>select(s));buttons.push(b);tabs.append(b);});}
  buildTabs();
  previewLink.addEventListener("click",event=>{event.preventDefault();openViewer(previewLink.href,`${p.title} · 第${current.step}张图`);});hd.addEventListener("click",event=>{event.preventDefault();openViewer(hd.href,`${p.title} · 第${current.step}张图 · 原图`);});
- actions.append(previewLink,hd,retry);box.append(tabs,label,status,image,actions);select(p.steps[0],false);
+ actions.append(previewLink,hd,retry);box.append(tabs,label,status);if(guide)box.append(caption);box.append(image,actions);select(p.steps[0],false);
  planControllers.set(key,{
   selection:()=>current,
-  apply(next,step,prepared){p=next;heading.querySelector('h3').textContent=p.title+' 战术图';source.href=p.sourceUrl;countText.textContent=`${p.steps.length} 张战术图`;captureText.textContent=`图片更新时间：${time(p.capturedAt)}`;sourceNotice.hidden=p.sourceCheck?.status!=='update_available';buildTabs();select(step,false,prepared);}
+  apply(next,step,prepared){p=next;heading.querySelector('h3').textContent=p.title+' '+imageKind;source.href=p.sourceUrl;countText.textContent=`${p.steps.length} 张${imageKind}`;captureText.textContent=`图片更新时间：${time(p.capturedAt)}`;sourceNotice.hidden=guide||p.sourceCheck?.status!=='update_available';buildTabs();select(step,false,prepared);}
  });return box;}
 const publishedPlans=new Map();
 function assetSignature(a){return [a.path,a.sha256,a.bytes,a.width,a.height];}
@@ -125,3 +125,8 @@ let activityTimer;
 function refreshActivityDates(){clearTimeout(activityTimer);const cycle=activityCycle();document.getElementById('activity-dates').textContent=cycle.text;if(!document.hidden)activityTimer=setTimeout(refreshActivityDates,Math.max(1,cycle.untilNext));}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(activityTimer);else refreshActivityDates();});
 refreshActivityDates();
+
+async function loadM7DftGuide(){const box=document.getElementById('guide-m7-dft');if(!box)return;try{const response=await fetch(new URL('data/m7-dft-guide.json',document.baseURI),{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();if(data.schemaVersion!==1||data.steps?.length!==5)throw Error('设置截图不完整');data.steps.forEach((step,i)=>{if(step.step!==i+1)throw Error('设置截图步骤不连续');validAsset(step.preview);validAsset(step.highResolution,true);});box.replaceChildren(planView('m7-dft',data,{guide:true}));}catch{box.replaceChildren(element('p','设置截图暂时无法显示，请刷新重试。','status error'));}}
+loadM7DftGuide();
+
+for(const link of document.querySelectorAll(".addon-image-link")){link.addEventListener("click",event=>{event.preventDefault();openViewer(resource(link.getAttribute("href")),link.dataset.imageTitle);});}

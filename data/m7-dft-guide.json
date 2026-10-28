@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "title": "M7 打断",
+  "steps": [
+    {
+      "step": 1,
+      "preview": {
+        "path": "assets/addons/m7-dft/20261028/step-1.png",
+        "bytes": 405794,
+        "width": 1674,
+        "height": 906,
+        "sha256": "0652075eb1463077017e52079f3a3ec07bd3249930541a38a4ba3fcd54140204"
+      },
+      "highResolution": {
+        "path": "assets/addons/m7-dft/20261028/step-1.png",
+        "bytes": 405794,
+        "width": 1674,
+        "height": 906,
+        "sha256": "0652075eb1463077017e52079f3a3ec07bd3249930541a38a4ba3fcd54140204"
+      }
+    },
+    {
+      "step": 2,
+      "preview": {
+        "path": "assets/addons/m7-dft/20261028/step-2.png",
+        "bytes": 518404,
+        "width": 1289,
+        "height": 918,
+        "sha256": "ee571cb947f67e39755da6a5f0e3d193736200a4348b0566935272579db5c5c8"
+      },
+      "highResolution": {
+        "path": "assets/addons/m7-dft/20261028/step-2.png",
+        "bytes": 518404,
+        "width": 1289,
+        "height": 918,
+        "sha256": "ee571cb947f67e39755da6a5f0e3d193736200a4348b0566935272579db5c5c8"
+      }
+    },
+    {
+      "step": 3,
+      "preview": {
+        "path": "assets/addons/m7-dft/20261028/step-3.png",
+        "bytes": 574859,
+        "width": 1320,
+        "height": 918,
+        "sha256": "7aef58482c95ce2ffe545d9d83aeab44ec7a092fcf028a84caaffc5618b8df63"
+      },
+      "highResolution": {
+        "path": "assets/addons/m7-dft/20261028/step-3.png",
+        "bytes": 574859,
+        "width": 1320,
+        "height": 918,
+        "sha256": "7aef58482c95ce2ffe545d9d83aeab44ec7a092fcf028a84caaffc5618b8df63"
+      }
+    },
+    {
+      "step": 4,
+      "preview": {
+        "path": "assets/addons/m7-dft/20261028/step-4.png",
+        "bytes": 126787,
+        "width": 370,
+        "height": 282,
+        "sha256": "be7fd10209143db4a247bd00d338100921f08d37f5a952e4923ffec36a8df1fe"
+      },
+      "highResolution": {
+        "path": "assets/addons/m7-dft/20261028/step-4.png",
+        "bytes": 126787,
+        "width": 370,
+        "height": 282,
+        "sha256": "be7fd10209143db4a247bd00d338100921f08d37f5a952e4923ffec36a8df1fe"
+      },
+      "caption": "拖动调整好位置"
+    },
+    {
+      "step": 5,
+      "preview": {
+        "path": "assets/addons/m7-dft/20261028/step-5.png",
+        "bytes": 448255,
+        "width": 1298,
+        "height": 899,
+        "sha256": "be96ea680861b5023441e9ede2b6329b312fe100a5bead8099ae33570db97e4f"
+      },
+      "highResolution": {
+        "path": "assets/addons/m7-dft/20261028/step-5.png",
+        "bytes": 448255,
+        "width": 1298,
+        "height": 899,
+        "sha256": "be96ea680861b5023441e9ede2b6329b312fe100a5bead8099ae33570db97e4f"
+      }
+    }
+  ]
+}
