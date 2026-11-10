@@ -35,3 +35,9 @@
 .m7-timeline-notice{border:2px solid var(--accent);border-left-width:6px;background:#fff0e9;color:var(--ink);padding:16px 18px;font-size:16px;line-height:1.8;overflow-wrap:anywhere}.m7-timeline-notice strong{font-weight:750}
 
 .dft-guide{margin-top:16px}.dft-guide .plan{margin-bottom:0}.dft-guide .preview{width:auto;max-width:100%;height:auto;margin-inline:auto}.addon-subheading{margin-top:28px}
+
+/* M8 uses the same preparation layout; the requested viewing note is green. */
+.farm-m7{margin-bottom:28px}
+.m8-timeline-notice{border:2px solid var(--accent);border-left-width:6px;background:#fff0e9;color:var(--ink);padding:16px 18px;font-size:16px;line-height:1.8;overflow-wrap:anywhere}
+.m8-timeline-notice strong,.m8-video-note strong{font-weight:750}
+.m8-video-note{border:2px solid #168449;border-left-width:6px;background:#effaf2;color:#116332;padding:16px 18px;font-size:16px;line-height:1.8;overflow-wrap:anywhere}
