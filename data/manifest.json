@@ -645,117 +645,151 @@
     "m8": {
       "title": "M8",
       "sourceUrl": "https://raidplan.io/plan/tbw7bcg8wbqscf5r/",
-      "revision": 26,
-      "version": "revision-26-20261112-webp-v1",
-      "capturedAt": "2026-11-12T05:23:43.008Z",
-      "sourceSavedAt": "2026-11-12T05:12:28.653Z",
+      "revision": 48,
+      "version": "revision-48-20261116-native-webp-v1",
+      "capturedAt": "2026-11-16T05:39:46.181321Z",
+      "sourceSavedAt": "2026-11-16T05:38:03.983Z",
       "sourceCheck": {
-        "checkedAt": "2026-11-12T05:23:43.008Z",
+        "checkedAt": "2026-11-16T05:40:12.300068Z",
         "status": "current",
-        "revision": 26,
-        "steps": 6
+        "revision": 48,
+        "steps": 8
       },
       "steps": [
         {
           "step": 1,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-1-preview.webp",
-            "bytes": 137312,
-            "width": 1280,
-            "height": 720,
-            "sha256": "3b7a4a69b73b4ba737ae9d9c771ac39f0213ca032f6e5ad2f09ca1bd28ce722d"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-1-original.webp",
+            "bytes": 132398,
+            "width": 1108,
+            "height": 623,
+            "sha256": "a8e874e0214d27e480220f56638a3eee7ea958955842562b9532d78633792065"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-1-hd.webp",
-            "bytes": 358168,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "c20044de3bfa4d0e13f9e7552fb09f93377bb85369630ee9b7a427df4a2562be"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-1-original.webp",
+            "bytes": 132398,
+            "width": 1108,
+            "height": 623,
+            "sha256": "a8e874e0214d27e480220f56638a3eee7ea958955842562b9532d78633792065"
           }
         },
         {
           "step": 2,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-2-preview.webp",
-            "bytes": 138954,
-            "width": 1280,
-            "height": 720,
-            "sha256": "c11a2a56ee49540fa439403772562b9415205ecd20a4042519a0b8a5cacebaad"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-2-original.webp",
+            "bytes": 129400,
+            "width": 1108,
+            "height": 623,
+            "sha256": "51688a297b6ded077b34126929b2c3abe55dd7c7a78a9e6984c691aef542b3cf"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-2-hd.webp",
-            "bytes": 344998,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "97d90e9ba013b0ce287836c0e47dca23de550564c6070fad4c4d27df262174ed"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-2-original.webp",
+            "bytes": 129400,
+            "width": 1108,
+            "height": 623,
+            "sha256": "51688a297b6ded077b34126929b2c3abe55dd7c7a78a9e6984c691aef542b3cf"
           }
         },
         {
           "step": 3,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-3-preview.webp",
-            "bytes": 111344,
-            "width": 1280,
-            "height": 720,
-            "sha256": "0a538660dc8dcfd3694d5041b768157c6498cff3d1e0dab721216b79f025829f"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-3-original.webp",
+            "bytes": 111898,
+            "width": 1108,
+            "height": 623,
+            "sha256": "919ecf76a5e2d6ab38b29adeeb3be74175e5d8047328e3870172d898de9830c0"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-3-hd.webp",
-            "bytes": 294206,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "dcefd3e0b6d5017d335de565de82dcacd55b7f2e8a97261229c8179eec5e6c40"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-3-original.webp",
+            "bytes": 111898,
+            "width": 1108,
+            "height": 623,
+            "sha256": "919ecf76a5e2d6ab38b29adeeb3be74175e5d8047328e3870172d898de9830c0"
           }
         },
         {
           "step": 4,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-4-preview.webp",
-            "bytes": 121756,
-            "width": 1280,
-            "height": 720,
-            "sha256": "f995a50d43e3f999ec905daecb51f3cbe889cec2b5a4c40b652a8f52e6a072c5"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-4-original.webp",
+            "bytes": 124670,
+            "width": 1108,
+            "height": 623,
+            "sha256": "218efd5409960acc4aa76b0e9dea4b09785ae3c0277141af2b9156404d0a4dbf"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-4-hd.webp",
-            "bytes": 295504,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "5e48a7d5045d2ed3a1a43eafde0da6aa38fcd9eeeb757a4db5d3a7d3cdd50ff7"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-4-original.webp",
+            "bytes": 124670,
+            "width": 1108,
+            "height": 623,
+            "sha256": "218efd5409960acc4aa76b0e9dea4b09785ae3c0277141af2b9156404d0a4dbf"
           }
         },
         {
           "step": 5,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-5-preview.webp",
-            "bytes": 116616,
-            "width": 1280,
-            "height": 720,
-            "sha256": "0157d6101738e15a644ad0cdedd47029a4641caaba7f7b6fe01ee0b2019860e7"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-5-original.webp",
+            "bytes": 109694,
+            "width": 1108,
+            "height": 623,
+            "sha256": "c2753b228a38319fb5617c0fe4a6c53ee1fa925023a024b762a8f68e9bc608e5"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-5-hd.webp",
-            "bytes": 283594,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "4a55b5d6bfd29b1363dee8a572fda87d85a81b9daa2481441046f2f30dbd6a44"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-5-original.webp",
+            "bytes": 109694,
+            "width": 1108,
+            "height": 623,
+            "sha256": "c2753b228a38319fb5617c0fe4a6c53ee1fa925023a024b762a8f68e9bc608e5"
           }
         },
         {
           "step": 6,
           "preview": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-6-preview.webp",
-            "bytes": 129230,
-            "width": 1280,
-            "height": 720,
-            "sha256": "996e7634078d706ab5aa6306c954f0867762be4befa981832d50585ac6fba1b6"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-6-original.webp",
+            "bytes": 120380,
+            "width": 1108,
+            "height": 623,
+            "sha256": "62c5a744ff3f546519956493d0852500b01b6d6a3821bcbb4068c210bbbf9f20"
           },
           "highResolution": {
-            "path": "assets/m8/revision-26-20261112-webp-v1/step-6-hd.webp",
-            "bytes": 325812,
-            "width": 2700,
-            "height": 1519,
-            "sha256": "db445bac8a62a84712b79a3047c41a87cefa4c168283597e34d19e47810529c6"
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-6-original.webp",
+            "bytes": 120380,
+            "width": 1108,
+            "height": 623,
+            "sha256": "62c5a744ff3f546519956493d0852500b01b6d6a3821bcbb4068c210bbbf9f20"
+          }
+        },
+        {
+          "step": 7,
+          "preview": {
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-7-original.webp",
+            "bytes": 131324,
+            "width": 1108,
+            "height": 623,
+            "sha256": "d7f8aaeeca6ad078026b24141bfc75101a00f6aee748aa63bf7d0ab8af006429"
+          },
+          "highResolution": {
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-7-original.webp",
+            "bytes": 131324,
+            "width": 1108,
+            "height": 623,
+            "sha256": "d7f8aaeeca6ad078026b24141bfc75101a00f6aee748aa63bf7d0ab8af006429"
+          }
+        },
+        {
+          "step": 8,
+          "preview": {
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-8-original.webp",
+            "bytes": 92592,
+            "width": 1108,
+            "height": 623,
+            "sha256": "985476e7da7e2c3e063851e9af63c30adcd08e33ef31a89304f4033c28e2aebc"
+          },
+          "highResolution": {
+            "path": "assets/m8/revision-48-20261116-native-webp-v1/step-8-original.webp",
+            "bytes": 92592,
+            "width": 1108,
+            "height": 623,
+            "sha256": "985476e7da7e2c3e063851e9af63c30adcd08e33ef31a89304f4033c28e2aebc"
           }
         }
       ]
